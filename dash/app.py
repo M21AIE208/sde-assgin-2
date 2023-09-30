@@ -1,18 +1,21 @@
 # Import packages
+from flask import Flask
 from dash import Dash, html,dcc
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
 
 import sqlite3
-conn = sqlite3.connect('./database.sqlite')
+conn = sqlite3.connect('database.sqlite')
 iris_data = pd.read_sql_query("SELECT * FROM Iris", conn)
 conn.close()
 
 
 #Initialize the app
-app = Dash(__name__,external_stylesheets=[dbc.themes.SIMPLEX])
-server = app.server
+server = Flask(__name__)
+app = Dash(name='Bootstrap_docker_app',
+           server=server,
+           external_stylesheets=[dbc.themes.SIMPLEX])
 # App layout
 app.layout = html.Div(children=[
     html.Div(dbc.Row(dbc.Col(html.H1("SDE-assign-2",style={'textAlign': 'center'})))),
@@ -45,5 +48,5 @@ app.layout = html.Div(children=[
 
 # Run the app
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run_server(host="0.0.0.0")
 
