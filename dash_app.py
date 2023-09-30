@@ -12,7 +12,7 @@ conn.close()
 
 #Initialize the app
 app = Dash(__name__,external_stylesheets=[dbc.themes.SIMPLEX])
-
+server = app.server
 # App layout
 app.layout = html.Div(children=[
     html.Div(dbc.Row(dbc.Col(html.H1("SDE-assign-2",style={'textAlign': 'center'})))),
