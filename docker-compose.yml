@@ -3,25 +3,23 @@ version: '3'
 services:
 
   dash_app:
-    container_name: dash_app
     restart: always
     build: ./dash
     expose:
       - "8000"
     command: gunicorn -w 1 -b 0.0.0.0:8000 app:server 
     deploy:
-	replicas: 2
+      replicas: 1
 
 
   nginx:
-    container_name: nginx
     restart: always
     build: ./nginx
-    ports:
-      - "8000:80"
+    port:
+      - "80:80"
     depends_on:
       - dash_app
     deploy:
-	replicas: 3
+      replicas: 1
     
 
