@@ -5,9 +5,9 @@ services:
   dash_app:
     restart: always
     build: ./dash
-    expose:
-      - "8000"
-    command: gunicorn -w 1 -b 0.0.0.0:8000 app:server 
+    ports:
+      - 8000:8000
+    command: gunicorn --bind 0.0.0.0:8000 app:server 
     deploy:
       replicas: 1
 
@@ -15,11 +15,10 @@ services:
   nginx:
     restart: always
     build: ./nginx
-    port:
-      - "80:80"
+    ports:
+      - 80:80
     depends_on:
       - dash_app
-    deploy:
-      replicas: 1
+ 
     
 
